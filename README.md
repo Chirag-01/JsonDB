@@ -1,4 +1,11 @@
-# JsonDB
+# **Table of Contents**
+- [JsonDB](https://github.com/Chirag-01/JsonDB/edit/master/README.md#jsondb)
+- [Benefits of using JsonPowerDB](https://github.com/Chirag-01/JsonDB/edit/master/README.md#benefits-of-using-jsonpowerdb)
+- [Features](https://github.com/Chirag-01/JsonDB/edit/master/README.md#features)
+- [Use cases](https://github.com/Chirag-01/JsonDB/edit/master/README.md#use-cases)
+
+
+# **JsonDB**
 About JsonPowerDB:
 JsonPowerDB is a Real-time, High Performance, Lightweight and Simple to Use, Rest API based Multi-mode DBMS. JsonPowerDB has ready to use API for Json document DB, RDBMS, Key-value DB, GeoSpatial DB and Time Series DB functionality. JPDB supports and advocates for true serverless and pluggable API development.
 
@@ -24,7 +31,7 @@ It helps developers in faster coding, in-turn reduces development costs.
 - Multiple security layers.
 - Nimble, Simple to use, In Memory, Real-time DBMS
 
-# **Use cases:**
+# **Use cases**
 - All RDMS use cases.
 - All key-value use cases.
 - All document use cases.
