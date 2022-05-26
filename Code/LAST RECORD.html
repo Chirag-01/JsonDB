@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style1.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    
+
+   
+
+    <div class="container">
+        <form id="empForm" method="post"> 
+
+            <h2>Get Last Record</h2>
+            <form id="empForm" method="post">
+                
+<!--                <div class="form-group">
+                    <label for="name">S Name:</label>
+                    <input type="text" class="form-control" id="name"
+                           placeholder="Enter S Name" name="name">
+                </div>                -->
+                <input type="button" class="btn btn-primary" id="empSave" value="Fetch"
+                       onclick="getEmployee();">
+        </form>
+    </div>
+        
+   
+
+    <script>
+        function validateAndGetFormData() {
+            var nameVar = $("#name").val();
+            if (nameVar === "") {
+                alert("Employee Name is a required value!");
+                $("#name").focus();
+                return "";
+            }
+            var jsonStrObj = {
+                name: nameVar,
+            };
+            return JSON.stringify(jsonStrObj);
+        }
+
+        function resetForm() {
+            $("#name").val("");
+            $("#name").focus();
+        }
+
+        function executeCommand(reqString, dbBaseUrl, apiEndPointUrl) {
+            var url = dbBaseUrl + apiEndPointUrl;
+            var jsonObj;
+            $.post(url, reqString, function (result) {
+                jsonObj = JSON.parse(result);
+            }).fail(function (result) {
+                var dataJsonObj = result.responseText;
+                jsonObj = JSON.parse(dataJsonObj);
+            });
+            return jsonObj;
+        }
+
+        function createLAST_RECORDRequest(token, dbName, relName, createTime, updateTime) {
+    return createNavReq(token, dbName, relName, "LAST_RECORD", 0, createTime, updateTime);
+}
+function createNavReq(token, dbName, relName, nav, recNo, createTime, updateTime) {
+    if (createTime !== undefined) {
+        if (createTime !== true) {
+            createTime = false;
+        }
+    } else {
+        createTime = false;
+    }
+    if (updateTime !== undefined) {
+        if (updateTime !== true) {
+            updateTime = false;
+        }
+    } else {
+        updateTime = false;
+    }
+    var partNavReq = "";
+
+    if (nav === "NEXT_RECORD" || nav === "PREV_RECORD") {
+        partNavReq = ",\n"
+                + "\"record\":"
+                + recNo;
+    }
+    var req = "{\n"
+            + "\"token\" : \""
+            + token
+            + "\","
+            + "\"dbName\": \""
+            + dbName
+            + "\",\n" + "\"cmd\" : \"" + nav + "\",\n"
+            + "\"rel\" : \""
+            + relName
+            + '"'
+            + partNavReq
+            + "\,"
+            + "\"createTime\":"
+            + createTime
+            + "\,"
+            + "\"updateTime\":"
+            + updateTime
+            + "\n}";
+    return req;
+}
+
+        function getEmployee() {
+            var jsonStr = validateAndGetFormData();
+            if (jsonStr === "") {
+                return;
+            }
+            var getReqStr = createLAST_RECORDRequest("90938992|-31949283672455628|90940859",
+                "Student", "Student-Rel", jsonStr,true,true);
+            alert(getReqStr);
+            jQuery.ajaxSetup({ async: false });
+            var resultObj = executeCommand(getReqStr,
+                "http://api.login2explore.com:5577", "/api/irl");
+            alert(JSON.stringify(resultObj));
+            jQuery.ajaxSetup({ async: true });
+            resetForm();
+        }        
+    </script>
+
+    
+
+</body>
+
+</html>
