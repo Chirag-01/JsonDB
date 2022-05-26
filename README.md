@@ -1,8 +1,8 @@
 # **Table of Contents**
-- [JsonDB](https://github.com/Chirag-01/JsonDB/edit/master/README.md#jsondb)
+- [JsonDB](https://github.com/Chirag-01/JsonDB/blob/master/README.md#jsondb)
 - [Benefits of using JsonPowerDB](https://github.com/Chirag-01/JsonDB#benefits-of-using-jsonpowerdb)
 - [Features](https://github.com/Chirag-01/JsonDB#features)
-- [Use cases](https://github.com/Chirag-01/JsonDB/edit/master/README.md#use-cases)
+- [Use cases](https://github.com/Chirag-01/JsonDB/blob/master/README.md#use-cases)
 
 
 # **JsonDB**
