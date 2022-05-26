@@ -1,75 +1,29 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="../style1.css">
-    <script src="http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-</head>
-
-<body>
-    
-    <div class="container">
-        <h2 id="header" style="font-size: 15px;">Update a record</h2>
-        <form id="empForm" method="post">
-            <div class="form-group">
-                <span><label for="empId">Student ID:</label> <label id="empIdMsg">
-                    </label></span>
-                <input type="text" class="form-control" name="empId" id="empId" placeholder="Enter Employee ID"
-                    required>
-            </div>
-            <div class="form-group">
-                <label for="name">Student Name:</label>
-                <input type="text" class="form-control" id="name"
-                    placeholder="In case you want to change your name, enter your new name here" name="name">
-            </div>
-            <div class="form-group">
-                <label for="Email">Email:</label>
-                <input type="email" class="form-control" id="Email"
-                    placeholder="In case you want to change your email ID, enter your new email ID here"
-                    name="Email">
-            </div>
-             <div class="form-group">
-                <label for="Email">Mobile No:</label>
-                <input type="email" class="form-control" id="mobileno"
-                    placeholder="In case you want to change your Mobile No, enter your new Mobile No here"
-                    name="mobileno">
-            </div>
-            <input type="button" class="btn btn-primary" id="empSave" value="Save" onclick="updateRecord();">
+    <head>
+        <title>Delete - JPDB</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+        <form id="empForm" method="post">             
+                
+            <h2>Delete Data</h2>
+                <div class="form-group">
+                    <label for="name">S Name:</label>
+                    <input type="text" class="form-control" id="id"
+                           placeholder="Enter id" name="id">
+                </div>                
+                <input type="button" class="btn btn-primary" id="empSave" value="DELETE"
+                       onclick="deleteData();">
         </form>
     </div>
     <script>
-        function validateAndGetFormData() {
-            var empIdVar = $("#empId").val();
-            if (empIdVar === "") {
-                alert("Employee ID is a required Value");
-                $("#empId").focus();
-                return "";
-            }
-            var NameVar = $("#name").val();
-            var EmailVar = $("#Email").val();
-            var mobileno = $("#mobileno").val();
-            if (NameVar === "" && EmailVar === "" && mobileno==="") {
-                alert("Enter atleast either a new email ID or a new name or number to perform an update!");
-                $("#empId").focus();
-                return "";
-            }
-            var jsonStrObj = {
-                empId: empIdVar,
-                name: NameVar,
-                Email: EmailVar,
-                mobileno:mobileno
-            };
-            return JSON.stringify(jsonStrObj);
-        }
-
         function executeCommand(reqString, dbBaseUrl, apiEndPointUrl) {
             var url = dbBaseUrl + apiEndPointUrl;
             var jsonObj;
@@ -81,48 +35,21 @@
             });
             return jsonObj;
         }
-        function createUPDATERecordRequest(token, jsonObj, dbName, relName, reqId) {
-            var req = "{\n"
-                + "\"token\" : \""
-                + token
-                + "\","
-                + "\"dbName\": \""
-                + dbName
-                + "\",\n" + "\"cmd\" : \"UPDATE\",\n"
-                + "\"rel\" : \""
-                + relName
-                + "\",\n"
-                + "\"jsonStr\":{ \""
-                + reqId
-                + "\":\n"
-                + jsonObj
-                + "\n"
-                + "}}";
-            return req;
-        }
+        function deleteData(){
+            var token = "90938992|-31949283672455628|90940859";
+            var dbname = "Student";
+            var relationName = "Student-Rel";
+            var id = parseInt(document.getElementById("id").value);
 
-        function updateRecord() {
-            var jsonStr = validateAndGetFormData();
-            if (jsonStr === "") {
-                return;
-            }
-
-
-
-
-            var removeReqStr = createUPDATERecordRequest("90938992|-31949283672455628|90940859", jsonStr, "Student", "Student-Rel", parseInt(document.getElementById("empId").value));
-            alert(removeReqStr);
-            jQuery.ajaxSetup({ async: false });
-            var resultObj = executeCommand(removeReqStr,
-                "http://api.login2explore.com:5577", "/api/iml");
+            var reqString = createREMOVERecordRequest(token, dbname, relationName, id);
+            alert(reqString);
+            jQuery.ajaxSetup({async: false});
+            var resultObj = executeCommand(reqString, "http://api.login2explore.com:5577", "/api/iml");
+            jQuery.ajaxSetup({async: true});
             alert(JSON.stringify(resultObj));
-            jQuery.ajaxSetup({ async: true });
-            resetForm();
+            
         }
-
     </script>
-
-  
-</body>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    </body>
 </html>
