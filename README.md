@@ -24,7 +24,7 @@ It helps developers in faster coding, in-turn reduces development costs.
 - Multiple security layers.
 - Nimble, Simple to use, In Memory, Real-time DBMS
 
-Use cases:
+# **Use cases:**
 - All RDMS use cases.
 - All key-value use cases.
 - All document use cases.
