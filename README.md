@@ -23,3 +23,12 @@ It helps developers in faster coding, in-turn reduces development costs.
 - Standardisation of API development framework makes the development process easy, more readable, and less error prone.
 - Multiple security layers.
 - Nimble, Simple to use, In Memory, Real-time DBMS
+
+Use cases:
+- All RDMS use cases.
+- All key-value use cases.
+- All document use cases.
+- Time series/geospatial analytics.
+- Real time application for data analytics.
+- Live working HTML templates.
+- Any software application that needs backend DB. (Dynamic web-apps/Mobile/Desktop Apps)
